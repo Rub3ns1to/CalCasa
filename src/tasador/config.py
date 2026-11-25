@@ -9,6 +9,7 @@ from typing import Literal
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 def _resolve_base_dir(module_file: Path | None = None, cwd: Path | None = None) -> Path:
     """Resuelve la raíz del proyecto tanto en editable (`src/`) como en wheel/Docker (`/app`)."""
     resolved_file = (module_file or Path(__file__)).resolve()
