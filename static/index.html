@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalCasa · Tasador Inmobiliario Multimodal · Madrid</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg?v=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              stone: '#DAD7CD',
+              sage: '#A3B18A',
+              fern: '#588157',
+              forest: '#3A5A40',
+              pine: '#344E41',
+              cream: '#F6F5F0',
+            },
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="min-h-screen bg-[#F6F5F0] text-[#344E41] font-sans antialiased">
+  <!-- Barra superior -->
+  <header class="border-b border-[#DAD7CD] bg-white/95 backdrop-blur sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="h-11 w-11 rounded-xl bg-[#DAD7CD] border border-[#A3B18A]/60 flex items-center justify-center shadow-sm shrink-0">
+          <svg viewBox="0 0 64 64" class="w-9 h-9" role="img" aria-label="Logo CalCasa">
+            <rect x="7" y="28.5" width="16" height="3" rx="1" fill="#588157"/>
+            <rect x="8" y="31" width="14" height="21" fill="#588157"/>
+            <rect x="10.5" y="34.5" width="3.5" height="5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="16" y="34.5" width="3.5" height="5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="10.5" y="42.5" width="3.5" height="5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="16" y="42.5" width="3.5" height="5" rx="0.8" fill="#DAD7CD"/>
+            <polygon points="24,29 32,12 40,29" fill="#344E41"/>
+            <polygon points="32,18 29.2,24 34.8,24" fill="#DAD7CD"/>
+            <rect x="24" y="29" width="16" height="23" fill="#344E41"/>
+            <rect x="27" y="34" width="4" height="5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="33" y="34" width="4" height="5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="29.5" y="43" width="5" height="9" rx="0.8" fill="#DAD7CD"/>
+            <rect x="41" y="30.5" width="16" height="3" rx="1" fill="#A3B18A"/>
+            <rect x="42" y="33" width="14" height="19" fill="#A3B18A"/>
+            <rect x="44.5" y="36.5" width="3.5" height="4.5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="50" y="36.5" width="3.5" height="4.5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="44.5" y="43.5" width="3.5" height="4.5" rx="0.8" fill="#DAD7CD"/>
+            <rect x="50" y="43.5" width="3.5" height="4.5" rx="0.8" fill="#DAD7CD"/>
+            <line x1="6" y1="52" x2="58" y2="52" stroke="#344E41" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-[#344E41]">
+              CalCasa
+            </h1>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#DAD7CD]/70 text-[#344E41]">
+              Madrid
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-[#3A5A40]">
+            Tasador Inmobiliario Multimodal · XGBoost + auditoría visual IA
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5">
+        <button id="open-model-modal-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-white hover:bg-[#F5F4EF] text-[#344E41] border border-[#DAD7CD] transition">
+          <svg class="w-3.5 h-3.5 text-[#588157]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+          </svg>
+          Métricas del modelo
+        </button>
+        <span id="vision-mode-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#F5F4EF] text-[#344E41] border border-[#DAD7CD]">
+          <span class="h-2 w-2 rounded-full bg-slate-400"></span>
+          Comprobando motor visual...
+        </span>
+        <span class="text-xs text-slate-500 border-l border-[#DAD7CD] pl-2.5">
+          Por <strong class="font-semibold text-[#344E41]">Rubén García Núñez</strong>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Panel izquierdo: formulario + fotos -->
+      <section class="lg:col-span-5 bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-6">
+        <div class="flex items-center justify-between gap-2 mb-4">
+          <h2 class="text-base font-semibold text-[#344E41]">Datos de la vivienda</h2>
+          <span class="text-xs font-medium text-[#588157]">1. Características</span>
+        </div>
+
+        <!-- Presets rápidos -->
+        <div class="mb-5">
+          <p class="text-xs font-medium text-slate-500 mb-2">Ejemplos rápidos para probar:</p>
+          <div class="flex flex-wrap gap-2">
+            <button type="button" data-preset="salamanca" class="preset-btn text-xs px-2.5 py-1.5 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+              Ático en Recoletos
+            </button>
+            <button type="button" data-preset="arganzuela" class="preset-btn text-xs px-2.5 py-1.5 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+              Familiar en Delicias
+            </button>
+            <button type="button" data-preset="vallecas" class="preset-btn text-xs px-2.5 py-1.5 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+              A reformar en Numancia
+            </button>
+          </div>
+        </div>
+
+        <form id="appraisal-form" class="space-y-4" novalidate>
+          <!-- Distrito y Micro-barrio -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="barrio" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Distrito (Madrid)
+              </label>
+              <select id="barrio" name="barrio" required class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]">
+                <option value="">Cargando distritos...</option>
+              </select>
+            </div>
+            <div>
+              <label for="micro_barrio" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Barrio / Zona
+              </label>
+              <select id="micro_barrio" name="micro_barrio" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]">
+                <option value="">Todo el distrito (media)</option>
+              </select>
+            </div>
+          </div>
+          <p id="district-median-hint" class="-mt-2 text-xs text-slate-500"></p>
+
+          <!-- Tipología -->
+          <div>
+            <label for="tipo_vivienda" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+              Tipo de vivienda
+            </label>
+            <select id="tipo_vivienda" name="tipo_vivienda" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]">
+              <option value="Piso">Piso</option>
+              <option value="Ático">Ático</option>
+              <option value="Dúplex">Dúplex</option>
+              <option value="Casa o chalet">Casa o chalet</option>
+            </select>
+          </div>
+
+          <!-- Métricas numéricas -->
+          <div class="grid grid-cols-2 gap-3.5">
+            <div>
+              <label for="metros_cuadrados" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Superficie (m²)
+              </label>
+              <input id="metros_cuadrados" name="metros_cuadrados" type="number" min="15" max="1000" step="1" value="90" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]" />
+            </div>
+            <div>
+              <label for="planta" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Planta (0 = bajo)
+              </label>
+              <input id="planta" name="planta" type="number" min="0" max="40" step="1" value="3" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]" />
+            </div>
+            <div>
+              <label for="habitaciones" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Habitaciones
+              </label>
+              <input id="habitaciones" name="habitaciones" type="number" min="0" max="15" step="1" value="3" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]" />
+            </div>
+            <div>
+              <label for="banos" class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1.5">
+                Baños
+              </label>
+              <input id="banos" name="banos" type="number" min="1" max="10" step="1" value="2" required class="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157] focus:border-[#588157]" />
+            </div>
+          </div>
+
+          <!-- Toggles booleanos -->
+          <div>
+            <span class="block text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
+              Equipamiento y orientación
+            </span>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button type="button" data-toggle="ascensor" aria-pressed="true" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Ascensor</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+              <button type="button" data-toggle="exterior" aria-pressed="true" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Exterior</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+              <button type="button" data-toggle="terraza" aria-pressed="false" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Terraza</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+              <button type="button" data-toggle="garaje" aria-pressed="false" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Garaje</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+              <button type="button" data-toggle="aire_acondicionado" aria-pressed="false" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Aire acond.</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+              <button type="button" data-toggle="trastero" aria-pressed="false" class="toggle-btn flex items-center justify-between px-3 py-2 rounded-xl border text-xs font-medium transition">
+                <span>Trastero</span>
+                <span class="toggle-dot h-2 w-2 rounded-full"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Subida de 1 a 10 fotos -->
+          <div class="pt-1">
+            <div class="flex items-center justify-between mb-1.5">
+              <span id="photo-limit-label" class="block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                2. Fotografías (1 a 10 imágenes)
+              </span>
+              <span id="photo-counter" class="text-xs font-medium text-slate-500">0 / 10 fotos</span>
+            </div>
+
+            <div id="drop-zone" tabindex="0" role="button" aria-label="Subir de 1 a 10 fotografías de la vivienda" class="border-2 border-dashed border-[#A3B18A] rounded-xl p-5 text-center cursor-pointer hover:border-[#588157] hover:bg-[#F5F4EF]/80 transition focus:outline-none focus:ring-2 focus:ring-[#588157]">
+              <input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden" />
+              <svg class="w-8 h-8 mx-auto text-[#588157] mb-2" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+              </svg>
+              <p class="text-sm font-medium text-[#344E41]">Arrastra tus fotos aquí o haz clic para seleccionar</p>
+              <p class="text-xs text-slate-400 mt-1">Salón, cocina, baño o fachada · JPG, PNG o WEBP (máx. 8 MB c/u)</p>
+            </div>
+
+            <!-- Previsualizaciones -->
+            <div id="preview-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mt-3 hidden"></div>
+          </div>
+
+          <!-- API Key opcional del usuario (BYOK) -->
+          <details id="byok-panel" class="rounded-xl border border-[#DAD7CD] bg-[#F5F4EF] px-3.5 py-2.5">
+            <summary class="list-none cursor-pointer flex items-center justify-between gap-2 select-none">
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#344E41]">
+                <svg class="w-3.5 h-3.5 text-[#588157] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                </svg>
+                <span>Usar tu propia API Key (opcional)</span>
+              </span>
+              <span id="byok-status-pill" class="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#DAD7CD] text-[#344E41]">
+                Por defecto
+              </span>
+            </summary>
+
+            <div class="mt-3 pt-3 border-t border-[#DAD7CD] space-y-2.5">
+              <p id="byok-helper-text" class="text-xs text-slate-600 leading-relaxed">
+                La demo pública funciona gratis en Modo Demo Local sin usar claves del autor. Si quieres probar la auditoría visual IA real, pega aquí tu propia clave (por ejemplo de Google AI Studio u OpenRouter).
+              </p>
+
+              <div>
+                <label for="byok-provider" class="block text-[11px] font-semibold uppercase tracking-wide text-slate-600 mb-1">
+                  Proveedor de visión
+                </label>
+                <select id="byok-provider" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157]">
+                  <option value="auto">Detección automática (recomendado)</option>
+                  <option value="gemini">Google Gemini (AIza...)</option>
+                  <option value="openrouter">OpenRouter (sk-or-...)</option>
+                  <option value="openai">OpenAI (sk-...)</option>
+                  <option value="anthropic">Anthropic Claude (sk-ant-...)</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="byok-api-key" class="block text-[11px] font-semibold uppercase tracking-wide text-slate-600 mb-1">
+                  Tu clave API
+                </label>
+                <div class="flex items-center gap-1.5">
+                  <input
+                    id="byok-api-key"
+                    type="password"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="Pega tu clave (AIza..., sk-or-..., sk-...)"
+                    class="flex-1 min-w-0 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#588157]"
+                  />
+                  <button
+                    type="button"
+                    id="byok-toggle-vis"
+                    class="px-2.5 py-1.5 rounded-lg border border-[#DAD7CD] bg-white hover:bg-[#DAD7CD]/40 text-xs font-medium text-[#344E41] transition shrink-0"
+                  >
+                    Ver
+                  </button>
+                  <button
+                    type="button"
+                    id="byok-clear-btn"
+                    disabled
+                    class="px-2.5 py-1.5 rounded-lg border border-[#DAD7CD] bg-white hover:bg-[#DAD7CD]/40 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium text-[#344E41] transition shrink-0"
+                  >
+                    Limpiar
+                  </button>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-500 leading-snug">
+                Privacidad: tu clave solo viaja en la cabecera HTTP de esta tasación y nunca se guarda en el servidor ni en tu navegador.
+              </p>
+            </div>
+          </details>
+
+          <!-- Banner de error -->
+          <div id="error-banner" class="hidden rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs text-rose-700"></div>
+
+          <!-- Botón enviar -->
+          <button id="submit-btn" type="submit" class="w-full py-3 px-4 rounded-xl bg-[#588157] hover:bg-[#3A5A40] disabled:bg-[#A3B18A] text-white text-sm font-semibold shadow-sm transition flex items-center justify-center gap-2">
+            <span id="submit-label">Calcular tasación multimodal</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Panel derecho: estado vacío / resultados + historial -->
+      <section class="lg:col-span-7 space-y-6">
+        <!-- Estado inicial -->
+        <div id="empty-state" class="bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-8 text-center">
+          <img
+            src="/static/img/calcasa-logo.svg"
+            alt="CalCasa · Tasador Inmobiliario Multimodal"
+            class="w-full max-w-[280px] h-auto mx-auto mb-5 rounded-2xl border border-[#A3B18A]/45 shadow-sm"
+          />
+          <h2 class="text-lg font-bold text-[#344E41] mb-2">¿Cómo calcula el precio CalCasa?</h2>
+          <p class="text-sm text-slate-600 max-w-xl mx-auto mb-6">
+            Nuestro tasador inmobiliario multimodal combina un modelo de Machine Learning sobre viviendas reales de Madrid con la lectura visual de tus fotografías para ajustar el rango según el estado real del inmueble.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+            <div class="rounded-xl bg-[#F5F4EF] border border-[#DAD7CD] p-4">
+              <span class="text-xs font-bold text-[#588157]">01 · TABULAR ML</span>
+              <p class="text-sm font-semibold text-[#344E41] mt-1">Precio base XGBoost</p>
+              <p class="text-xs text-slate-600 mt-1">Estima el valor de mercado según distrito, barrio, m², planta, ascensor y extras.</p>
+            </div>
+            <div class="rounded-xl bg-[#F5F4EF] border border-[#DAD7CD] p-4">
+              <span class="text-xs font-bold text-[#588157]">02 · VISIÓN IA</span>
+              <p class="text-sm font-semibold text-[#344E41] mt-1">Auditoría 1–10</p>
+              <p class="text-xs text-slate-600 mt-1">Evalúa reforma (45 %), calidades (30 %) y luminosidad (25 %) en tus fotos.</p>
+            </div>
+            <div class="rounded-xl bg-[#F5F4EF] border border-[#DAD7CD] p-4">
+              <span class="text-xs font-bold text-[#588157]">03 · AJUSTE ±15 %</span>
+              <p class="text-sm font-semibold text-[#344E41] mt-1">Rango, PDF y testigos</p>
+              <p class="text-xs text-slate-600 mt-1">Entrega rango de mercado, comparables reales del barrio e informe descargable.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="results-panel" class="hidden space-y-5">
+          <!-- Aviso modo demo o fallback -->
+          <div id="vision-warning-banner" class="hidden rounded-xl border px-4 py-3 text-xs"></div>
+
+          <!-- Tarjeta hero de valoración -->
+          <div class="bg-[#344E41] text-white rounded-2xl p-6 sm:p-7 shadow-md">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span id="result-property-summary" class="text-xs font-medium text-[#DAD7CD]"></span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span id="district-comparison-pill" class="hidden text-xs font-semibold px-2.5 py-1 rounded-full"></span>
+                <button id="download-pdf-btn" type="button" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-[#3A5A40] hover:bg-[#588157] text-white border border-[#A3B18A]/40 transition">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                  <span id="download-pdf-label">Descargar informe PDF</span>
+                </button>
+              </div>
+            </div>
+
+            <p class="text-xs uppercase tracking-wider text-[#A3B18A] font-semibold">
+              Rango de valoración estimado
+            </p>
+            <p id="result-range" class="text-3xl sm:text-4xl font-bold tracking-tight mt-1"></p>
+
+            <div class="mt-4 pt-4 border-t border-[#588157]/40 grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div>
+                <p class="text-xs text-[#DAD7CD]/80">Estimación central</p>
+                <p id="result-central" class="text-lg font-semibold mt-0.5"></p>
+              </div>
+              <div>
+                <p class="text-xs text-[#DAD7CD]/80">Precio estimado / m²</p>
+                <p id="result-m2" class="text-lg font-semibold mt-0.5"></p>
+              </div>
+              <div class="col-span-2 sm:col-span-1">
+                <p class="text-xs text-[#DAD7CD]/80">Rango €/m²</p>
+                <p id="result-m2-range" class="text-sm sm:text-base font-medium text-[#DAD7CD] mt-1"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desglose transparente de 3 pasos -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div class="bg-white rounded-xl border border-[#DAD7CD] p-4">
+              <p class="text-xs font-medium text-slate-500">1. Precio base ML</p>
+              <p id="step-base-price" class="text-lg font-bold text-[#344E41] mt-1"></p>
+              <p id="step-base-m2" class="text-xs text-slate-400 mt-0.5"></p>
+            </div>
+            <div class="bg-white rounded-xl border border-[#DAD7CD] p-4">
+              <p class="text-xs font-medium text-slate-500">2. Ajuste visual</p>
+              <p id="step-visual-pct" class="text-lg font-bold mt-1"></p>
+              <p id="step-visual-eur" class="text-xs text-slate-400 mt-0.5"></p>
+            </div>
+            <div class="bg-white rounded-xl border border-[#DAD7CD] p-4">
+              <p class="text-xs font-medium text-slate-500">3. Banda estadística</p>
+              <p id="step-band-pct" class="text-lg font-bold text-[#344E41] mt-1"></p>
+              <p id="step-photos-count" class="text-xs text-slate-400 mt-0.5"></p>
+            </div>
+          </div>
+
+          <!-- Factores clave del modelo tabular -->
+          <div id="tabular-factors-card" class="hidden bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-sm font-semibold text-[#344E41]">Factores clave del precio base (XGBoost)</h3>
+              <span class="text-xs text-slate-400">Impacto estimado sobre configuración estándar</span>
+            </div>
+            <div id="tabular-factors-list" class="flex flex-wrap gap-2"></div>
+          </div>
+
+          <!-- Desglose visual + justificación -->
+          <div class="bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-6 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-base font-semibold text-[#344E41]">Auditoría visual de las fotografías</h3>
+                <p id="vision-model-caption" class="text-xs text-slate-500 mt-0.5"></p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span id="vision-estado-pill" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F5F4EF] text-[#344E41] border border-[#DAD7CD]"></span>
+                <span id="vision-weighted-score" class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#344E41] text-white"></span>
+              </div>
+            </div>
+
+            <!-- Barras de puntuación -->
+            <div class="space-y-3.5">
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-700">Reforma y conservación <span class="text-slate-400">(peso 45 %)</span></span>
+                  <span id="score-reforma-val" class="font-semibold text-[#344E41]"></span>
+                </div>
+                <div class="h-2.5 bg-[#DAD7CD]/45 rounded-full overflow-hidden">
+                  <div id="bar-reforma" class="h-full bg-[#344E41] rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-700">Calidades y acabados <span class="text-slate-400">(peso 30 %)</span></span>
+                  <span id="score-calidades-val" class="font-semibold text-[#344E41]"></span>
+                </div>
+                <div class="h-2.5 bg-[#DAD7CD]/45 rounded-full overflow-hidden">
+                  <div id="bar-calidades" class="h-full bg-[#588157] rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-slate-700">Luminosidad natural <span class="text-slate-400">(peso 25 %)</span></span>
+                  <span id="score-luminosidad-val" class="font-semibold text-[#344E41]"></span>
+                </div>
+                <div class="h-2.5 bg-[#DAD7CD]/45 rounded-full overflow-hidden">
+                  <div id="bar-luminosidad" class="h-full bg-amber-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Justificación -->
+            <div class="rounded-xl bg-[#F5F4EF] border border-[#DAD7CD] p-4">
+              <p class="text-xs font-semibold uppercase tracking-wide text-[#588157] mb-1">Justificación de la valoración</p>
+              <p id="vision-justification" class="text-sm text-slate-700 leading-relaxed"></p>
+            </div>
+
+            <!-- Puntos fuertes / mejora -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-[#3A5A40] mb-2">Puntos fuertes</p>
+                <ul id="strengths-list" class="space-y-1.5 text-xs text-slate-700"></ul>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wide text-amber-700 mb-2">Aspectos mejorables</p>
+                <ul id="improvements-list" class="space-y-1.5 text-xs text-slate-700"></ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulador What-If de reforma -->
+          <div id="simulator-card" class="bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-6 space-y-4">
+            <div class="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <h3 class="text-base font-semibold text-[#344E41]">Simulador de reforma (nota del 1 al 10)</h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Mueve los deslizadores para simular cómo subiría el valor si mejorases el estado de reforma o los acabados (la luminosidad se mantiene fija según tus fotos).
+                </p>
+                <p id="sim-luminosidad-note" class="text-xs font-medium text-[#3A5A40] mt-1"></p>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" id="sim-btn-current" class="text-xs px-2.5 py-1 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+                  Foto actual
+                </button>
+                <button type="button" id="sim-btn-mid" class="text-xs px-2.5 py-1 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+                  Lavado de cara (7/7)
+                </button>
+                <button type="button" id="sim-btn-full" class="text-xs px-2.5 py-1 rounded-lg border border-[#DAD7CD] bg-[#F5F4EF] hover:bg-[#DAD7CD]/55 text-[#344E41] font-medium transition">
+                  Reforma integral (9/9)
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <label for="sim-reforma" class="text-slate-700">Nota de reforma</label>
+                  <span id="sim-reforma-label" class="font-semibold text-[#344E41]"></span>
+                </div>
+                <input id="sim-reforma" type="range" min="1" max="10" step="1" class="w-full accent-[#588157] cursor-pointer" />
+                <div class="flex justify-between text-[11px] text-slate-400 mt-0.5">
+                  <span>1 = a reformar</span>
+                  <span>5 = estándar</span>
+                  <span>10 = lujo</span>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <label for="sim-calidades" class="text-slate-700">Nota de calidades</label>
+                  <span id="sim-calidades-label" class="font-semibold text-[#344E41]"></span>
+                </div>
+                <input id="sim-calidades" type="range" min="1" max="10" step="1" class="w-full accent-[#588157] cursor-pointer" />
+                <div class="flex justify-between text-[11px] text-slate-400 mt-0.5">
+                  <span>1 = básico</span>
+                  <span>5 = estándar</span>
+                  <span>10 = premium</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-xl bg-[#F5F4EF] border border-[#DAD7CD] px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="text-xs text-slate-500">Precio tras reforma simulada</p>
+                <p class="text-lg font-bold text-[#344E41]">
+                  <span id="sim-price"></span>
+                  <span id="sim-m2" class="text-xs font-medium text-slate-500 ml-1.5"></span>
+                </p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-slate-500">Revalorización estimada</p>
+                <p id="sim-delta" class="text-sm font-bold"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testigos comparables reales -->
+          <div id="comparables-card" class="hidden bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-6 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h3 class="text-base font-semibold text-[#344E41]">Testigos comparables reales del barrio</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Registros anonimizados del dataset de Madrid actualizados al mercado actual</p>
+              </div>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-[#DAD7CD]/55 text-[#344E41]">Top 4 similares</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="border-b border-[#DAD7CD] text-slate-500">
+                    <th class="py-2 pr-3 font-semibold">Zona</th>
+                    <th class="py-2 pr-3 font-semibold">Tipo</th>
+                    <th class="py-2 pr-3 font-semibold">m²</th>
+                    <th class="py-2 pr-3 font-semibold">Hab/B</th>
+                    <th class="py-2 pr-3 font-semibold">Planta</th>
+                    <th class="py-2 pr-3 font-semibold">Precio est.</th>
+                    <th class="py-2 pr-3 font-semibold">€/m²</th>
+                    <th class="py-2 font-semibold text-right">Similitud</th>
+                  </tr>
+                </thead>
+                <tbody id="comparables-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historial local de tasaciones -->
+        <div id="history-card" class="hidden bg-white rounded-2xl border border-[#DAD7CD] shadow-sm p-5 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <h3 class="text-sm font-semibold text-[#344E41]">Historial de tasaciones recientes</h3>
+              <p class="text-xs text-slate-500">Guardado localmente en tu navegador para comparar inmuebles sin gastar créditos</p>
+            </div>
+            <button id="clear-history-btn" type="button" class="text-xs text-slate-500 hover:text-rose-600 font-medium transition">
+              Limpiar historial
+            </button>
+          </div>
+          <div id="history-list" class="space-y-2"></div>
+        </div>
+
+        <!-- Pie con métricas reales del modelo tabular -->
+        <footer class="bg-white rounded-xl border border-[#DAD7CD] px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="model-metrics-footer">Cargando métricas del modelo tabular...</span>
+            <button id="footer-model-modal-btn" type="button" class="text-[#3A5A40] hover:text-[#344E41] font-semibold underline underline-offset-2">
+              Ver benchmark e importancias
+            </button>
+          </div>
+          <span>Nota: estimación orientativa de portfolio, no sustituye a una tasación oficial ECO.</span>
+        </footer>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal: Transparencia del modelo ML -->
+  <div id="model-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#344E41]/45 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="model-modal-title">
+    <div class="bg-white rounded-2xl border border-[#DAD7CD] shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 space-y-5">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h2 id="model-modal-title" class="text-lg font-bold text-[#344E41]">Transparencia del modelo tabular (ML)</h2>
+          <p id="modal-dataset-subtitle" class="text-xs text-slate-500 mt-0.5"></p>
+        </div>
+        <button id="close-model-modal-btn" type="button" aria-label="Cerrar ventana" class="h-8 w-8 rounded-lg border border-[#DAD7CD] text-slate-500 hover:text-[#344E41] hover:bg-[#F5F4EF] flex items-center justify-center text-lg leading-none transition">
+          ×
+        </button>
+      </div>
+
+      <!-- KPIs -->
+      <div id="modal-kpis" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+
+      <!-- Tabla Benchmark -->
+      <div class="space-y-2">
+        <h3 class="text-sm font-semibold text-[#344E41]">Comparativa de modelos (mismo split holdout 20 %)</h3>
+        <div class="overflow-x-auto rounded-xl border border-[#DAD7CD]">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-[#F5F4EF] text-slate-600 border-b border-[#DAD7CD]">
+              <tr>
+                <th class="py-2.5 px-3 font-semibold">Modelo</th>
+                <th class="py-2.5 px-3 font-semibold">R²</th>
+                <th class="py-2.5 px-3 font-semibold">MAPE</th>
+                <th class="py-2.5 px-3 font-semibold">MedAPE</th>
+                <th class="py-2.5 px-3 font-semibold">MAE</th>
+              </tr>
+            </thead>
+            <tbody id="modal-benchmark-body" class="divide-y divide-slate-100 text-slate-700"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Importancia de variables -->
+      <div class="space-y-2.5">
+        <h3 class="text-sm font-semibold text-[#344E41]">Peso de cada grupo de variables en XGBoost</h3>
+        <div id="modal-importances-list" class="space-y-2.5"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js?v=20261125-4"></script>
+</body>
+</html>

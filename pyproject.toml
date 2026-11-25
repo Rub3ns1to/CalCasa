@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tasador-inmobiliario-multimodal"
+version = "0.1.0"
+description = "Tasador inmobiliario multimodal para Madrid: modelo tabular XGBoost + análisis visual vía OpenRouter."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Rubén García Núñez" }
+]
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn[standard]>=0.32,<1.0",
+    "python-multipart>=0.0.12",
+    "pydantic>=2.9,<3.0",
+    "pydantic-settings>=2.6,<3.0",
+    "httpx>=0.27,<1.0",
+    "pillow>=11.0,<12.0",
+    "numpy>=2.1,<3.0",
+    "pandas>=2.2,<3.0",
+    "scikit-learn>=1.5,<2.0",
+    "xgboost>=2.1,<4.0",
+    "joblib>=1.4,<2.0",
+    "fpdf2>=2.8,<3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9.0",
+    "ruff>=0.8,<1.0",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008", "E501"]

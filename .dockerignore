@@ -1,0 +1,38 @@
+# Control de versiones y CI
+.git/
+.gitignore
+.github/
+
+# Entornos y caches locales
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secretos y configuración local (NUNCA incluir en la imagen pública)
+.env
+.env.*
+
+# Datasets brutos, tests y archivos auxiliares
+data/
+tests/
+docs/*.pdf
+scripts/
+
+# Sistema operativo e IDE
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db

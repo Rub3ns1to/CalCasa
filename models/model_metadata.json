@@ -1,0 +1,807 @@
+{
+  "algorithm": "XGBRegressor + TransformedTargetRegressor(log1p)",
+  "dataset_source": "houses_Madrid.csv",
+  "dataset_year_note": "Dataset Kaggle Madrid (21,551 viviendas) actualizado con factor de mercado ×1.35",
+  "market_update_factor": 1.35,
+  "trained_at_utc": "2026-11-25T10:07:12.662495+00:00",
+  "total_rows": 21551,
+  "training_rows": 17240,
+  "test_rows": 4311,
+  "n_districts": 20,
+  "n_neighborhoods": 126,
+  "features": [
+    "barrio",
+    "micro_barrio",
+    "tipo_vivienda",
+    "metros_cuadrados",
+    "habitaciones",
+    "banos",
+    "planta",
+    "ascensor",
+    "exterior",
+    "terraza",
+    "garaje",
+    "aire_acondicionado",
+    "trastero",
+    "necesita_reforma",
+    "obra_nueva",
+    "m2_por_habitacion",
+    "sin_ascensor_planta_alta",
+    "es_bajo"
+  ],
+  "metrics": {
+    "test_r2": 0.9101,
+    "test_mae_eur": 96029.41,
+    "test_rmse_eur": 202810.84,
+    "test_mape_pct": 14.42,
+    "test_medape_pct": 11.04,
+    "cv5_r2": 0.9131,
+    "cv5_mape_pct": 14.46
+  },
+  "benchmark": [
+    {
+      "modelo": "Ridge (Baseline)",
+      "r2": -3.5777,
+      "mae_eur": 157018.85,
+      "rmse_eur": 1447394.15,
+      "mape_pct": 19.51,
+      "medape_pct": 14.2
+    },
+    {
+      "modelo": "HistGradientBoosting",
+      "r2": 0.9084,
+      "mae_eur": 98143.45,
+      "rmse_eur": 204786.58,
+      "mape_pct": 14.58,
+      "medape_pct": 11.11
+    },
+    {
+      "modelo": "XGBoost (Seleccionado)",
+      "r2": 0.9101,
+      "mae_eur": 96029.41,
+      "rmse_eur": 202810.84,
+      "mape_pct": 14.42,
+      "medape_pct": 11.04
+    }
+  ],
+  "feature_importances": [
+    {
+      "grupo": "Ubicación (Distrito y Barrio)",
+      "importancia_pct": 75.2
+    },
+    {
+      "grupo": "Superficie y distribución",
+      "importancia_pct": 9.3
+    },
+    {
+      "grupo": "Baños",
+      "importancia_pct": 9.3
+    },
+    {
+      "grupo": "Planta y ascensor",
+      "importancia_pct": 4.2
+    },
+    {
+      "grupo": "Tipo de vivienda",
+      "importancia_pct": 0.8
+    },
+    {
+      "grupo": "Estado / Obra nueva",
+      "importancia_pct": 0.4
+    },
+    {
+      "grupo": "Orientación exterior",
+      "importancia_pct": 0.2
+    },
+    {
+      "grupo": "Garaje",
+      "importancia_pct": 0.2
+    },
+    {
+      "grupo": "Aire acondicionado",
+      "importancia_pct": 0.2
+    },
+    {
+      "grupo": "Terraza",
+      "importancia_pct": 0.1
+    },
+    {
+      "grupo": "Trastero",
+      "importancia_pct": 0.1
+    }
+  ],
+  "district_median_m2": {
+    "Arganzuela": 5436,
+    "Barajas": 4390,
+    "Carabanchel": 2972,
+    "Centro": 7114,
+    "Chamartín": 7009,
+    "Chamberí": 7455,
+    "Ciudad Lineal": 4271,
+    "Fuencarral-El Pardo": 4806,
+    "Hortaleza": 5181,
+    "Latina": 3264,
+    "Moncloa-Aravaca": 5335,
+    "Moratalaz": 3520,
+    "Puente de Vallecas": 2689,
+    "Retiro": 6097,
+    "Salamanca": 8361,
+    "Tetuán": 5139,
+    "Usera": 2801,
+    "Vicálvaro": 3200,
+    "Villa de Vallecas": 3348,
+    "Villaverde": 2485
+  },
+  "neighborhoods_by_district": {
+    "Arganzuela": [
+      {
+        "nombre": "Acacias",
+        "mediana_m2": 5416,
+        "muestras": 180
+      },
+      {
+        "nombre": "Chopera",
+        "mediana_m2": 4885,
+        "muestras": 145
+      },
+      {
+        "nombre": "Delicias",
+        "mediana_m2": 5229,
+        "muestras": 216
+      },
+      {
+        "nombre": "Imperial",
+        "mediana_m2": 5810,
+        "muestras": 161
+      },
+      {
+        "nombre": "Legazpi",
+        "mediana_m2": 5971,
+        "muestras": 144
+      },
+      {
+        "nombre": "Palos de Moguer",
+        "mediana_m2": 5513,
+        "muestras": 157
+      }
+    ],
+    "Barajas": [
+      {
+        "nombre": "Alameda de Osuna",
+        "mediana_m2": 4411,
+        "muestras": 13
+      },
+      {
+        "nombre": "Campo de las Naciones-Corralejos",
+        "mediana_m2": 4759,
+        "muestras": 9
+      },
+      {
+        "nombre": "Casco Histórico de Barajas",
+        "mediana_m2": 4268,
+        "muestras": 6
+      },
+      {
+        "nombre": "Timón",
+        "mediana_m2": 3701,
+        "muestras": 6
+      }
+    ],
+    "Carabanchel": [
+      {
+        "nombre": "Abrantes",
+        "mediana_m2": 2699,
+        "muestras": 196
+      },
+      {
+        "nombre": "Buena Vista",
+        "mediana_m2": 2891,
+        "muestras": 159
+      },
+      {
+        "nombre": "Comillas",
+        "mediana_m2": 3517,
+        "muestras": 128
+      },
+      {
+        "nombre": "Opañel",
+        "mediana_m2": 3050,
+        "muestras": 172
+      },
+      {
+        "nombre": "Pau de Carabanchel",
+        "mediana_m2": 4026,
+        "muestras": 86
+      },
+      {
+        "nombre": "Puerta Bonita",
+        "mediana_m2": 2700,
+        "muestras": 234
+      },
+      {
+        "nombre": "San Isidro",
+        "mediana_m2": 3077,
+        "muestras": 276
+      },
+      {
+        "nombre": "Vista Alegre",
+        "mediana_m2": 2865,
+        "muestras": 252
+      }
+    ],
+    "Centro": [
+      {
+        "nombre": "Chueca-Justicia",
+        "mediana_m2": 8221,
+        "muestras": 341
+      },
+      {
+        "nombre": "Huertas-Cortes",
+        "mediana_m2": 7188,
+        "muestras": 174
+      },
+      {
+        "nombre": "Lavapiés-Embajadores",
+        "mediana_m2": 5950,
+        "muestras": 385
+      },
+      {
+        "nombre": "Malasaña-Universidad",
+        "mediana_m2": 7755,
+        "muestras": 485
+      },
+      {
+        "nombre": "Palacio",
+        "mediana_m2": 6532,
+        "muestras": 269
+      },
+      {
+        "nombre": "Sol",
+        "mediana_m2": 7182,
+        "muestras": 129
+      }
+    ],
+    "Chamartín": [
+      {
+        "nombre": "Bernabéu-Hispanoamérica",
+        "mediana_m2": 7004,
+        "muestras": 384
+      },
+      {
+        "nombre": "Castilla",
+        "mediana_m2": 5894,
+        "muestras": 161
+      },
+      {
+        "nombre": "Ciudad Jardín",
+        "mediana_m2": 6532,
+        "muestras": 114
+      },
+      {
+        "nombre": "El Viso",
+        "mediana_m2": 8467,
+        "muestras": 444
+      },
+      {
+        "nombre": "Nueva España",
+        "mediana_m2": 7425,
+        "muestras": 344
+      },
+      {
+        "nombre": "Prosperidad",
+        "mediana_m2": 5803,
+        "muestras": 365
+      }
+    ],
+    "Chamberí": [
+      {
+        "nombre": "Almagro",
+        "mediana_m2": 9288,
+        "muestras": 422
+      },
+      {
+        "nombre": "Arapiles",
+        "mediana_m2": 6786,
+        "muestras": 231
+      },
+      {
+        "nombre": "Gaztambide",
+        "mediana_m2": 6543,
+        "muestras": 273
+      },
+      {
+        "nombre": "Nuevos Ministerios-Ríos Rosas",
+        "mediana_m2": 7181,
+        "muestras": 284
+      },
+      {
+        "nombre": "Trafalgar",
+        "mediana_m2": 8438,
+        "muestras": 334
+      },
+      {
+        "nombre": "Vallehermoso",
+        "mediana_m2": 6113,
+        "muestras": 202
+      }
+    ],
+    "Ciudad Lineal": [
+      {
+        "nombre": "Atalaya",
+        "mediana_m2": 5811,
+        "muestras": 37
+      },
+      {
+        "nombre": "Colina",
+        "mediana_m2": 5749,
+        "muestras": 84
+      },
+      {
+        "nombre": "Concepción",
+        "mediana_m2": 4420,
+        "muestras": 128
+      },
+      {
+        "nombre": "Costillares",
+        "mediana_m2": 5492,
+        "muestras": 152
+      },
+      {
+        "nombre": "Pueblo Nuevo",
+        "mediana_m2": 3645,
+        "muestras": 337
+      },
+      {
+        "nombre": "Quintana",
+        "mediana_m2": 4050,
+        "muestras": 139
+      },
+      {
+        "nombre": "San Juan Bautista",
+        "mediana_m2": 5625,
+        "muestras": 97
+      },
+      {
+        "nombre": "San Pascual",
+        "mediana_m2": 5028,
+        "muestras": 103
+      },
+      {
+        "nombre": "Ventas",
+        "mediana_m2": 3647,
+        "muestras": 275
+      }
+    ],
+    "Fuencarral-El Pardo": [
+      {
+        "nombre": "Arroyo del Fresno",
+        "mediana_m2": 5117,
+        "muestras": 29
+      },
+      {
+        "nombre": "El Pardo",
+        "mediana_m2": 4688,
+        "muestras": 13
+      },
+      {
+        "nombre": "Fuentelarreina",
+        "mediana_m2": 4398,
+        "muestras": 77
+      },
+      {
+        "nombre": "La Paz",
+        "mediana_m2": 4821,
+        "muestras": 117
+      },
+      {
+        "nombre": "Las Tablas",
+        "mediana_m2": 5672,
+        "muestras": 137
+      },
+      {
+        "nombre": "Mirasierra",
+        "mediana_m2": 5271,
+        "muestras": 174
+      },
+      {
+        "nombre": "Montecarmelo",
+        "mediana_m2": 6102,
+        "muestras": 84
+      },
+      {
+        "nombre": "Peñagrande",
+        "mediana_m2": 4431,
+        "muestras": 294
+      },
+      {
+        "nombre": "Pilar",
+        "mediana_m2": 4363,
+        "muestras": 149
+      },
+      {
+        "nombre": "Tres Olivos - Valverde",
+        "mediana_m2": 3762,
+        "muestras": 135
+      }
+    ],
+    "Hortaleza": [
+      {
+        "nombre": "Apóstol Santiago",
+        "mediana_m2": 4003,
+        "muestras": 64
+      },
+      {
+        "nombre": "Canillas",
+        "mediana_m2": 4386,
+        "muestras": 212
+      },
+      {
+        "nombre": "Conde Orgaz-Piovera",
+        "mediana_m2": 5736,
+        "muestras": 444
+      },
+      {
+        "nombre": "Palomas",
+        "mediana_m2": 5062,
+        "muestras": 115
+      },
+      {
+        "nombre": "Pinar del Rey",
+        "mediana_m2": 3884,
+        "muestras": 203
+      },
+      {
+        "nombre": "Sanchinarro",
+        "mediana_m2": 6075,
+        "muestras": 228
+      },
+      {
+        "nombre": "Valdebebas - Valdefuentes",
+        "mediana_m2": 5223,
+        "muestras": 149
+      },
+      {
+        "nombre": "Virgen del Cortijo - Manoteras",
+        "mediana_m2": 4878,
+        "muestras": 53
+      }
+    ],
+    "Latina": [
+      {
+        "nombre": "Aluche",
+        "mediana_m2": 3118,
+        "muestras": 153
+      },
+      {
+        "nombre": "Campamento",
+        "mediana_m2": 3099,
+        "muestras": 56
+      },
+      {
+        "nombre": "Cuatro Vientos",
+        "mediana_m2": 3703,
+        "muestras": 2
+      },
+      {
+        "nombre": "Los Cármenes",
+        "mediana_m2": 3700,
+        "muestras": 75
+      },
+      {
+        "nombre": "Lucero",
+        "mediana_m2": 3286,
+        "muestras": 159
+      },
+      {
+        "nombre": "Puerta del Ángel",
+        "mediana_m2": 3753,
+        "muestras": 212
+      },
+      {
+        "nombre": "Águilas",
+        "mediana_m2": 3003,
+        "muestras": 93
+      }
+    ],
+    "Moncloa-Aravaca": [
+      {
+        "nombre": "Aravaca",
+        "mediana_m2": 4945,
+        "muestras": 412
+      },
+      {
+        "nombre": "Argüelles",
+        "mediana_m2": 6750,
+        "muestras": 347
+      },
+      {
+        "nombre": "Casa de Campo",
+        "mediana_m2": 4880,
+        "muestras": 78
+      },
+      {
+        "nombre": "Ciudad Universitaria",
+        "mediana_m2": 5116,
+        "muestras": 281
+      },
+      {
+        "nombre": "El Plantío",
+        "mediana_m2": 3750,
+        "muestras": 111
+      },
+      {
+        "nombre": "Valdemarín",
+        "mediana_m2": 5850,
+        "muestras": 178
+      },
+      {
+        "nombre": "Valdezarza",
+        "mediana_m2": 4091,
+        "muestras": 148
+      }
+    ],
+    "Moratalaz": [
+      {
+        "nombre": "Fontarrón",
+        "mediana_m2": 3054,
+        "muestras": 78
+      },
+      {
+        "nombre": "Horcajo",
+        "mediana_m2": 3574,
+        "muestras": 11
+      },
+      {
+        "nombre": "Marroquina",
+        "mediana_m2": 4021,
+        "muestras": 79
+      },
+      {
+        "nombre": "Media Legua",
+        "mediana_m2": 3763,
+        "muestras": 46
+      },
+      {
+        "nombre": "Pavones",
+        "mediana_m2": 2989,
+        "muestras": 19
+      },
+      {
+        "nombre": "Vinateros",
+        "mediana_m2": 3471,
+        "muestras": 54
+      }
+    ],
+    "Puente de Vallecas": [
+      {
+        "nombre": "Entrevías",
+        "mediana_m2": 2081,
+        "muestras": 118
+      },
+      {
+        "nombre": "Numancia",
+        "mediana_m2": 2784,
+        "muestras": 251
+      },
+      {
+        "nombre": "Palomeras Bajas",
+        "mediana_m2": 2819,
+        "muestras": 159
+      },
+      {
+        "nombre": "Palomeras sureste",
+        "mediana_m2": 2880,
+        "muestras": 182
+      },
+      {
+        "nombre": "Portazgo",
+        "mediana_m2": 2546,
+        "muestras": 91
+      },
+      {
+        "nombre": "San Diego",
+        "mediana_m2": 2669,
+        "muestras": 308
+      }
+    ],
+    "Retiro": [
+      {
+        "nombre": "Adelfas",
+        "mediana_m2": 5727,
+        "muestras": 129
+      },
+      {
+        "nombre": "Estrella",
+        "mediana_m2": 5554,
+        "muestras": 121
+      },
+      {
+        "nombre": "Ibiza",
+        "mediana_m2": 7670,
+        "muestras": 183
+      },
+      {
+        "nombre": "Jerónimos",
+        "mediana_m2": 10253,
+        "muestras": 129
+      },
+      {
+        "nombre": "Niño Jesús",
+        "mediana_m2": 6240,
+        "muestras": 61
+      },
+      {
+        "nombre": "Pacífico",
+        "mediana_m2": 5601,
+        "muestras": 226
+      }
+    ],
+    "Salamanca": [
+      {
+        "nombre": "Castellana",
+        "mediana_m2": 9733,
+        "muestras": 170
+      },
+      {
+        "nombre": "Fuente del Berro",
+        "mediana_m2": 6345,
+        "muestras": 71
+      },
+      {
+        "nombre": "Goya",
+        "mediana_m2": 8195,
+        "muestras": 278
+      },
+      {
+        "nombre": "Guindalera",
+        "mediana_m2": 5836,
+        "muestras": 199
+      },
+      {
+        "nombre": "Lista",
+        "mediana_m2": 8237,
+        "muestras": 147
+      },
+      {
+        "nombre": "Recoletos",
+        "mediana_m2": 11836,
+        "muestras": 240
+      }
+    ],
+    "Tetuán": [
+      {
+        "nombre": "Bellas Vistas",
+        "mediana_m2": 4867,
+        "muestras": 234
+      },
+      {
+        "nombre": "Berruguete",
+        "mediana_m2": 4556,
+        "muestras": 186
+      },
+      {
+        "nombre": "Cuatro Caminos",
+        "mediana_m2": 5925,
+        "muestras": 349
+      },
+      {
+        "nombre": "Cuzco-Castillejos",
+        "mediana_m2": 5826,
+        "muestras": 235
+      },
+      {
+        "nombre": "Valdeacederas",
+        "mediana_m2": 4573,
+        "muestras": 244
+      },
+      {
+        "nombre": "Ventilla-Almenara",
+        "mediana_m2": 4567,
+        "muestras": 110
+      }
+    ],
+    "Usera": [
+      {
+        "nombre": "12 de Octubre-Orcasur",
+        "mediana_m2": 2280,
+        "muestras": 53
+      },
+      {
+        "nombre": "Almendrales",
+        "mediana_m2": 2893,
+        "muestras": 149
+      },
+      {
+        "nombre": "Moscardó",
+        "mediana_m2": 3142,
+        "muestras": 133
+      },
+      {
+        "nombre": "Orcasitas",
+        "mediana_m2": 2362,
+        "muestras": 92
+      },
+      {
+        "nombre": "Pradolongo",
+        "mediana_m2": 2840,
+        "muestras": 104
+      },
+      {
+        "nombre": "San Fermín",
+        "mediana_m2": 2723,
+        "muestras": 105
+      },
+      {
+        "nombre": "Zofío",
+        "mediana_m2": 2590,
+        "muestras": 58
+      }
+    ],
+    "Vicálvaro": [
+      {
+        "nombre": "Ambroz",
+        "mediana_m2": 2813,
+        "muestras": 91
+      },
+      {
+        "nombre": "Casco Histórico de Vicálvaro",
+        "mediana_m2": 2911,
+        "muestras": 87
+      },
+      {
+        "nombre": "El Cañaveral - Los Berrocales",
+        "mediana_m2": 3303,
+        "muestras": 286
+      },
+      {
+        "nombre": "Valdebernardo - Valderribas",
+        "mediana_m2": 3960,
+        "muestras": 52
+      }
+    ],
+    "Villa de Vallecas": [
+      {
+        "nombre": "Casco Histórico de Vallecas",
+        "mediana_m2": 2736,
+        "muestras": 201
+      },
+      {
+        "nombre": "Ensanche de Vallecas - La Gavia",
+        "mediana_m2": 3677,
+        "muestras": 344
+      },
+      {
+        "nombre": "Santa Eugenia",
+        "mediana_m2": 2921,
+        "muestras": 59
+      }
+    ],
+    "Villaverde": [
+      {
+        "nombre": "Butarque",
+        "mediana_m2": 2982,
+        "muestras": 180
+      },
+      {
+        "nombre": "Los Rosales",
+        "mediana_m2": 2507,
+        "muestras": 161
+      },
+      {
+        "nombre": "Los Ángeles",
+        "mediana_m2": 2403,
+        "muestras": 111
+      },
+      {
+        "nombre": "San Andrés",
+        "mediana_m2": 2323,
+        "muestras": 276
+      },
+      {
+        "nombre": "San Cristóbal",
+        "mediana_m2": 1945,
+        "muestras": 86
+      }
+    ]
+  }
+}

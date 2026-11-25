@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 134" role="img" aria-label="CalCasa · Tasador Inmobiliario Multimodal">
+  <rect width="340" height="134" rx="16" fill="#DAD7CD"/>
+
+  <!-- Letras C L C S en Pino #344E41 apoyadas sobre las fachadas planas -->
+  <g fill="#344E41" font-family="Inter, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="47" font-weight="800" text-anchor="middle">
+    <text x="47.5" y="56.5">C</text>
+    <text x="129.0" y="56.5">L</text>
+    <text x="165.5" y="56.5">C</text>
+    <text x="248.5" y="56.5">S</text>
+  </g>
+
+  <!-- 1 (C): fachada plana Bosque #3A5A40 -->
+  <rect x="28.5" y="58.5" width="38" height="3" rx="1" fill="#3A5A40"/>
+  <rect x="29.5" y="61" width="36" height="61" fill="#3A5A40"/>
+  <rect x="35.5" y="67" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="51" y="67" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="35.5" y="82" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="51" y="82" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="35.5" y="97" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="51" y="97" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="43.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 2 (A #1): tejado macizo con buhardilla en Pino #344E41 (igual que las letras) -->
+  <polygon points="68.5,59 89.5,18 110.5,59" fill="#344E41"/>
+  <polygon points="89.5,27.5 84.5,38 94.5,38" fill="#DAD7CD"/>
+  <rect x="81.5" y="43" width="6.5" height="9" rx="1" fill="#DAD7CD"/>
+  <rect x="91" y="43" width="6.5" height="9" rx="1" fill="#DAD7CD"/>
+  <rect x="68.5" y="59" width="42" height="63" fill="#344E41"/>
+  <rect x="76.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="93.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="76.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="93.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="76.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="93.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="85.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 3 (L): fachada estrecha plana Salvia #A3B18A -->
+  <rect x="112.5" y="58.5" width="33" height="3" rx="1" fill="#A3B18A"/>
+  <rect x="113.5" y="61" width="31" height="61" fill="#A3B18A"/>
+  <rect x="118.5" y="67" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="132" y="67" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="118.5" y="82" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="132" y="82" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="118.5" y="97" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="132" y="97" width="7.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="125" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 4 (C): fachada plana Helecho #588157 -->
+  <rect x="146.5" y="58.5" width="38" height="3" rx="1" fill="#588157"/>
+  <rect x="147.5" y="61" width="36" height="61" fill="#588157"/>
+  <rect x="153.5" y="67" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="169" y="67" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="153.5" y="82" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="169" y="82" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="153.5" y="97" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="169" y="97" width="8.5" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="161.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 5 (A #2): tejado alto macizo con buhardilla en Pino #344E41 -->
+  <polygon points="186.5,59 207.5,16 228.5,59" fill="#344E41"/>
+  <polygon points="207.5,25.5 202.2,36.5 212.8,36.5" fill="#DAD7CD"/>
+  <rect x="199.5" y="42.5" width="6.5" height="9.5" rx="1" fill="#DAD7CD"/>
+  <rect x="209" y="42.5" width="6.5" height="9.5" rx="1" fill="#DAD7CD"/>
+  <rect x="186.5" y="59" width="42" height="63" fill="#344E41"/>
+  <rect x="194.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="211.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="194.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="211.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="194.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="211.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="203.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 6 (S): fachada plana Salvia #A3B18A -->
+  <rect x="230.5" y="58.5" width="36" height="3" rx="1" fill="#A3B18A"/>
+  <rect x="231.5" y="61" width="34" height="61" fill="#A3B18A"/>
+  <rect x="237" y="67" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="252" y="67" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="237" y="82" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="252" y="82" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="237" y="97" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="252" y="97" width="8" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="244.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <!-- 7 (A #3): tejado macizo con buhardilla en Pino #344E41 -->
+  <polygon points="268.5,59 289.5,18 310.5,59" fill="#344E41"/>
+  <polygon points="289.5,27.5 284.5,38 294.5,38" fill="#DAD7CD"/>
+  <rect x="281.5" y="43" width="6.5" height="9" rx="1" fill="#DAD7CD"/>
+  <rect x="291" y="43" width="6.5" height="9" rx="1" fill="#DAD7CD"/>
+  <rect x="268.5" y="59" width="42" height="63" fill="#344E41"/>
+  <rect x="276.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="293.5" y="67" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="276.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="293.5" y="82" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="276.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="293.5" y="97" width="9" height="10" rx="1" fill="#DAD7CD"/>
+  <rect x="285.5" y="110" width="8" height="12" rx="1" fill="#DAD7CD"/>
+
+  <line x1="22" y1="122" x2="318" y2="122" stroke="#344E41" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

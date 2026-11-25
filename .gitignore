@@ -1,0 +1,34 @@
+# Entornos virtuales y dependencias
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Testing y linters
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secretos y configuración local
+.env
+.env.local
+
+# Datasets pesados descargados manualmente (Kaggle, etc.)
+data/raw/*.csv
+data/raw/*.parquet
+data/raw/*.xlsx
+
+# Sistema operativo e IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
