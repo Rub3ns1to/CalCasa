@@ -42,9 +42,9 @@ jobs:
       - name: Verificar arranque y /api/health en contenedor
         run: |
           docker run -d --name tasador-ci -p 8000:8000 tasador-inmobiliario:ci
-          python -c "
+          python3 -c "
           import json, time, urllib.request
-          for _ in range(20):
+          for _ in range(30):
               try:
                   with urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2) as res:
                       body = json.loads(res.read().decode())
@@ -53,12 +53,20 @@ jobs:
                       assert body['model_loaded'] is True
                       assert body['vision_mode'] == 'demo'
                       assert body['byok_supported'] is True
-                      break
+                  with urllib.request.urlopen('http://127.0.0.1:8000/', timeout=2) as html_res:
+                      html = html_res.read().decode()
+                      assert html_res.status == 200
+                      assert 'CalCasa' in html
+                  break
               except Exception:
                   time.sleep(1)
           else:
               raise SystemExit('Timeout esperando a /api/health en contenedor')
           "
+
+      - name: Mostrar logs si falla el contenedor
+        if: failure()
+        run: docker logs tasador-ci || true
 
       - name: Limpiar contenedor de prueba
         if: always()

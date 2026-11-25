@@ -29,7 +29,6 @@ RUN useradd --create-home --uid 1000 --shell /bin/sh appuser
 WORKDIR /app
 
 COPY --from=builder /opt/venv /opt/venv
-COPY --chown=appuser:appuser src ./src
 COPY --chown=appuser:appuser static ./static
 COPY --chown=appuser:appuser models ./models
 

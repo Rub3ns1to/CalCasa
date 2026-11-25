@@ -1,6 +1,8 @@
 """Pruebas de coherencia económica y explicabilidad del modelo tabular entrenado."""
 
-from tasador.config import Settings
+from pathlib import Path
+
+from tasador.config import Settings, _resolve_base_dir
 from tasador.ml.predictor import TabularPricePredictor
 from tasador.schemas import PropertyInput
 
@@ -175,3 +177,15 @@ def test_find_comparables_returns_similar_recoletos_witnesses() -> None:
     assert len(comparables) == 4
     assert all(c.micro_barrio == "Recoletos" for c in comparables)
     assert all(c.precio_m2 > 0 and 55 <= c.similitud_pct <= 99 for c in comparables)
+
+
+def test_resolve_base_dir_falls_back_to_cwd_for_wheel_install(tmp_path: Path) -> None:
+    fake_site_pkg = tmp_path / "venv" / "lib" / "python3.11" / "site-packages" / "tasador" / "config.py"
+    fake_site_pkg.parent.mkdir(parents=True)
+    fake_site_pkg.write_text("", encoding="utf-8")
+
+    app_dir = tmp_path / "app"
+    (app_dir / "models").mkdir(parents=True)
+
+    resolved = _resolve_base_dir(module_file=fake_site_pkg, cwd=app_dir)
+    assert resolved == app_dir.resolve()

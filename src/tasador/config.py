@@ -9,7 +9,21 @@ from typing import Literal
 from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+def _resolve_base_dir(module_file: Path | None = None, cwd: Path | None = None) -> Path:
+    """Resuelve la raíz del proyecto tanto en editable (`src/`) como en wheel/Docker (`/app`)."""
+    resolved_file = (module_file or Path(__file__)).resolve()
+    source_root = (
+        resolved_file.parents[2] if len(resolved_file.parents) > 2 else resolved_file.parent
+    )
+    if (source_root / "models").exists() or (source_root / "static").exists():
+        return source_root
+    current_dir = (cwd or Path.cwd()).resolve()
+    if (current_dir / "models").exists() or (current_dir / "static").exists():
+        return current_dir
+    return source_root
+
+
+BASE_DIR = _resolve_base_dir()
 BYOK_MODEL_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,79}$")
 
 VisionProviderMode = Literal["openrouter", "gemini", "openai", "anthropic", "demo"]
