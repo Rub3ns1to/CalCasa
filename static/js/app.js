@@ -69,6 +69,8 @@
     lastAppraisal: null,
     history: [],
     serverVisionMode: "demo",
+    serverVisionModel: "",
+    serverHealthLoaded: false,
   };
 
   const els = {
@@ -179,44 +181,120 @@
     els.errorBanner.classList.add("hidden");
   }
 
-  function updateByokStatus() {
+  function getByokState() {
     const rawKey = els.byokApiKey ? els.byokApiKey.value.trim() : "";
-    if (els.byokClearBtn) {
-      els.byokClearBtn.disabled = !rawKey;
+    if (!rawKey) {
+      return { active: false, unrecognized: false, providerLabel: "" };
     }
-    if (!els.byokStatusPill) return;
 
-    if (rawKey) {
-      const selected = els.byokProvider ? els.byokProvider.value : "auto";
-      const labels = {
-        gemini: "Gemini",
+    const lowered = rawKey.toLowerCase();
+    const placeholders = new Set(["your_api_key", "your_key_here", "changeme", "sk-or-v1-", "sk-or-"]);
+    if (
+      placeholders.has(lowered) ||
+      rawKey.includes("...") ||
+      rawKey.includes("${") ||
+      lowered.endsWith("xxx")
+    ) {
+      return { active: true, unrecognized: true, providerLabel: "" };
+    }
+
+    const selected = els.byokProvider ? els.byokProvider.value : "auto";
+    const labels = {
+      gemini: "Gemini",
+      openrouter: "OpenRouter",
+      anthropic: "Claude",
+      openai: "OpenAI",
+    };
+
+    if (selected !== "auto" && labels[selected]) {
+      return { active: true, unrecognized: false, providerLabel: labels[selected] };
+    }
+
+    if (rawKey.startsWith("AIza")) {
+      return { active: true, unrecognized: false, providerLabel: "Gemini" };
+    }
+    if (rawKey.startsWith("sk-or-")) {
+      return { active: true, unrecognized: false, providerLabel: "OpenRouter" };
+    }
+    if (rawKey.startsWith("sk-ant-")) {
+      return { active: true, unrecognized: false, providerLabel: "Claude" };
+    }
+    if (rawKey.startsWith("sk-")) {
+      return { active: true, unrecognized: false, providerLabel: "OpenAI" };
+    }
+    return { active: true, unrecognized: true, providerLabel: "" };
+  }
+
+  function renderVisionBadge(byok = getByokState()) {
+    if (!els.visionBadge) return;
+
+    els.visionBadge.replaceChildren();
+    const dot = document.createElement("span");
+    const label = document.createElement("span");
+
+    if (byok.active && !byok.unrecognized) {
+      els.visionBadge.className =
+        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200";
+      dot.className = "h-2 w-2 rounded-full bg-emerald-500";
+      label.textContent = `Tu API Key activa (${byok.providerLabel})`;
+    } else if (byok.active && byok.unrecognized) {
+      els.visionBadge.className =
+        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200";
+      dot.className = "h-2 w-2 rounded-full bg-amber-500";
+      label.textContent = "Tu API Key (elige proveedor)";
+    } else if (!state.serverHealthLoaded) {
+      els.visionBadge.className =
+        "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#F5F4EF] text-[#344E41] border border-[#DAD7CD]";
+      dot.className = "h-2 w-2 rounded-full bg-slate-400";
+      label.textContent = "Comprobando motor visual...";
+    } else {
+      const providerLabels = {
         openrouter: "OpenRouter",
-        anthropic: "Claude",
+        gemini: "Gemini API",
         openai: "OpenAI",
+        anthropic: "Claude",
+        demo: "Modo Demo Local",
       };
-      let providerLabel = labels[selected] || "Auto";
-      if (selected === "auto") {
-        if (rawKey.startsWith("AIza")) {
-          providerLabel = "Gemini";
-        } else if (rawKey.startsWith("sk-or-")) {
-          providerLabel = "OpenRouter";
-        } else if (rawKey.startsWith("sk-ant-")) {
-          providerLabel = "Claude";
-        } else if (rawKey.startsWith("sk-")) {
-          providerLabel = "OpenAI";
-        }
-      }
-      els.byokStatusPill.className =
-        "text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800";
-      els.byokStatusPill.textContent = `Tu clave (${providerLabel})`;
-      return;
+      const isLive = state.serverVisionMode !== "demo";
+      const providerName = providerLabels[state.serverVisionMode] || state.serverVisionMode;
+      els.visionBadge.className = isLive
+        ? "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200"
+        : "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#F5F4EF] text-[#344E41] border border-[#DAD7CD]";
+      dot.className = `h-2 w-2 rounded-full ${isLive ? "bg-emerald-500" : "bg-amber-500"}`;
+      label.textContent = isLive
+        ? `${providerName} (${state.serverVisionModel})`
+        : "Modo Demo Local (sin API key)";
     }
 
-    const isDemo = state.serverVisionMode === "demo";
-    els.byokStatusPill.className = isDemo
-      ? "text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-800"
-      : "text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-600";
-    els.byokStatusPill.textContent = isDemo ? "Demo local" : "Motor servidor";
+    els.visionBadge.appendChild(dot);
+    els.visionBadge.appendChild(label);
+  }
+
+  function updateByokStatus() {
+    const byok = getByokState();
+    if (els.byokClearBtn) {
+      els.byokClearBtn.disabled = !byok.active;
+    }
+
+    if (els.byokStatusPill) {
+      if (byok.active && !byok.unrecognized) {
+        els.byokStatusPill.className =
+          "text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800";
+        els.byokStatusPill.textContent = `Tu clave (${byok.providerLabel})`;
+      } else if (byok.active && byok.unrecognized) {
+        els.byokStatusPill.className =
+          "text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-800";
+        els.byokStatusPill.textContent = "Elige proveedor";
+      } else {
+        const isDemo = state.serverVisionMode === "demo";
+        els.byokStatusPill.className = isDemo
+          ? "text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-800"
+          : "text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-600";
+        els.byokStatusPill.textContent = isDemo ? "Demo local" : "Motor servidor";
+      }
+    }
+
+    renderVisionBadge(byok);
   }
 
   function renderToggles() {
@@ -876,25 +954,9 @@
       if (healthRes.ok) {
         const health = await healthRes.json();
         state.serverVisionMode = health.vision_mode || "demo";
-        const providerLabels = {
-          openrouter: "OpenRouter",
-          gemini: "Gemini API",
-          openai: "OpenAI",
-          anthropic: "Claude",
-          demo: "Modo Demo Local",
-        };
+        state.serverVisionModel = health.vision_model || health.openrouter_model || "";
+        state.serverHealthLoaded = true;
         const isLive = state.serverVisionMode !== "demo";
-        const providerName = providerLabels[state.serverVisionMode] || state.serverVisionMode;
-        const modelName = health.vision_model || health.openrouter_model;
-        els.visionBadge.replaceChildren();
-        const dot = document.createElement("span");
-        dot.className = `h-2 w-2 rounded-full ${isLive ? "bg-emerald-500" : "bg-amber-500"}`;
-        const label = document.createElement("span");
-        label.textContent = isLive
-          ? `${providerName} (${modelName})`
-          : "Modo Demo Local (sin API key)";
-        els.visionBadge.appendChild(dot);
-        els.visionBadge.appendChild(label);
 
         if (els.byokHelperText) {
           els.byokHelperText.textContent = isLive
@@ -1077,8 +1139,12 @@
       formData.append("fotos", item.file, item.file.name);
     });
 
+    const byok = getByokState();
     els.submitBtn.disabled = true;
-    els.submitLabel.textContent = "Analizando datos y fotografías...";
+    els.submitLabel.textContent =
+      byok.active && !byok.unrecognized
+        ? `Analizando con ${byok.providerLabel}...`
+        : "Analizando datos y fotografías...";
 
     try {
       const requestHeaders = {};
@@ -1113,6 +1179,7 @@
 
   if (els.byokApiKey) {
     els.byokApiKey.addEventListener("input", updateByokStatus);
+    els.byokApiKey.addEventListener("change", updateByokStatus);
   }
   if (els.byokProvider) {
     els.byokProvider.addEventListener("change", updateByokStatus);

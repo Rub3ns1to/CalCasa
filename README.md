@@ -47,7 +47,7 @@ Más detalle matemático y de diseño en [`docs/architecture.md`](docs/architect
 
 ## Métricas reales del modelo tabular (Kaggle Madrid)
 
-Entrenado con `scripts/train_model.py` sobre **`21.551` viviendas reales limpias** de `houses_Madrid.csv` (Kaggle *Madrid real estate market*), cubriendo **20 distritos y 126 micro-barrios** de Madrid (división estratificada `80 % train = 17.240 / 20 % test = 4.311` + validación cruzada `5-fold`):
+Entrenado con `scripts/train_model.py` sobre **`21.551` viviendas reales limpias** de `houses_Madrid.csv` (Kaggle *Madrid real estate market*), cubriendo **20 de los 21 distritos oficiales y 126 micro-barrios** de Madrid *(el snapshot público de Kaggle omite `District 16` · San Blas-Canillejas, que sí está disponible en la interfaz con referencia base)* (división estratificada `80 % train = 17.240 / 20 % test = 4.311` + validación cruzada `5-fold`):
 
 | Modelo (Holdout 4.311 viviendas) | R² | MAPE | MedAPE | MAE | RMSE |
 | --- | --- | --- | --- | --- | --- |
@@ -96,7 +96,7 @@ tasador-inmobiliario-multimodal/
 │   ├── main.py                     # API FastAPI y servidor de archivos estáticos
 │   ├── schemas.py                  # Modelos Pydantic de entrada/salida
 │   ├── ml/
-│   │   ├── features.py             # 20 distritos + 126 barrios e ingeniería de características
+│   │   ├── features.py             # 21 distritos oficiales (20 en Kaggle) + 126 barrios e ingeniería
 │   │   └── predictor.py            # Carga del modelo, contrafactuales y comparables
 │   ├── services/
 │   │   ├── appraisal_service.py    # Orquestación y fórmula de ajuste visual
