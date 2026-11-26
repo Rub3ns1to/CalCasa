@@ -7,8 +7,9 @@
 Aplicación web full-stack de **tasación inmobiliaria inteligente** que combina **Machine Learning tabular (`XGBoost` + `scikit-learn`)** con **análisis visual multimodal vía Gemini / OpenRouter API** para estimar el rango de precio de viviendas en Madrid, su valor por m² y una justificación breve basada en las fotografías aportadas.
 
 > **Autor:** Rubén García Núñez  
+> **Demo en vivo:** [https://calcasa.onrender.com/](https://calcasa.onrender.com/) *(Modo Demo Local + BYOK)*  
 > **Licencia:** MIT ([`LICENSE`](LICENSE))  
-> **Stack:** FastAPI · Tailwind CSS · Vanilla JS · XGBoost · scikit-learn · Pillow · OpenRouter API · pytest
+> **Stack:** FastAPI · Tailwind CSS · Vanilla JS · XGBoost · scikit-learn · Pillow · Gemini / OpenRouter API · pytest
 
 ---
 
@@ -212,21 +213,24 @@ Si quieres reproducir o modificar el entrenamiento desde cero:
 
 ---
 
-## Docker & Despliegue público (Render / Hugging Face Spaces)
+## Docker & Despliegue público (Render)
+
+El proyecto está desplegado en producción en **[https://calcasa.onrender.com/](https://calcasa.onrender.com/)** usando el plan gratuito con Docker de **Render** (`0 €/mes`, sin tarjeta de crédito y con HTTPS automático).
 
 El repositorio incluye un [`Dockerfile`](Dockerfile) multi-stage (`python:3.11-slim`, usuario no-root UID 1000 y `fonts-dejavu-core` para exportar informes PDF con `€`) y un [`.dockerignore`](.dockerignore) que **excluye `.env` y cualquier clave personal**.
 
 ```bash
 # Construir imagen de producción
-docker build -t tasador-inmobiliario-multimodal .
+docker build -t calcasa .
 
 # Arrancar en Modo Demo Local + BYOK (cero claves del autor en la imagen)
-docker run --rm -p 8000:8000 tasador-inmobiliario-multimodal
+docker run --rm -p 8000:8000 calcasa
 ```
 
-En plataformas como **Render** (Web Service con runtime Docker), **Railway** o **Hugging Face Spaces** (SDK Docker), basta con conectar el repositorio:
-1. La demo pública arranca directamente en **Modo Demo Local** sin configurar ninguna clave privada.
-2. Cada visitante que desee probar el análisis multimodal completo puede introducir su propia clave desde el bloque **"Usar tu propia API Key (opcional)"** en el formulario web (o vía cabecera `X-Vision-Api-Key`), sin almacenarse en el servidor ni en `localStorage`.
+Cómo funciona en producción:
+1. La demo pública arranca directamente en **Modo Demo Local** sin configurar ninguna clave privada del autor (`~320 MB` de RAM).
+2. Cada visitante que desee probar el análisis multimodal completo con LLM puede introducir su propia clave desde el bloque **"Usar tu propia API Key (opcional)"** en el formulario web (o vía cabecera `X-Vision-Api-Key`), sin almacenarse en el servidor ni en `localStorage`.
+3. En despliegues gratuitos de Render, el servicio entra en reposo tras 15 minutos sin tráfico y tarda unos 30–50 segundos en despertar en la primera visita.
 
 ---
 
